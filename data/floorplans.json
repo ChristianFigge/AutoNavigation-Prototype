@@ -1,0 +1,68 @@
+{ 	"floorplans" : {
+		"C0" : {
+			"imgUrl" : "img/0.png",
+			"sX" : 0,
+			"sY" : 0,
+			"sWidth" : 1600,
+			"sHeight" : 600,
+			"directions" : {
+				"forward" : -1,
+				"right" : -1,
+				"backward" : "B0",
+				"left": -1,
+				"up" : "C1",
+				"down" : -1
+			},
+			"tree_id" : 0
+		},
+		"C1" : {
+			"imgUrl" : "img/C1.png",
+			"sX" : 0,
+			"sY" : 0,
+			"sWidth" : 1600,
+			"sHeight" : 600,
+			"directions" : {
+				"forward" : -1,
+				"right" : -1,
+				"backward" : -1,
+				"left": -1,
+				"up" : "C2",
+				"down" : "C0"
+			},
+			"tree_id" : 1
+		},
+		"C2" : {
+			"imgUrl" : "img/C2.png",
+			"sX" : 0,
+			"sY" : 0,
+			"sWidth" : 1600,
+			"sHeight" : 600,
+			"directions" : {
+				"forward" : -1,
+				"right" : -1,
+				"backward" : -1,
+				"left": -1,
+				"up" : -1,
+				"down" : "C1"
+			},
+			"tree_id" : 2
+		},
+		"B0" : {
+			"imgUrl" : "img/0.png",
+			"sX" : 0,
+			"sY" : 600,
+			"sWidth" : 1600,
+			"sHeight" : 600,
+			"directions" : {
+				"forward" : "C0",
+				"right" : -1,
+				"backward" : -1,
+				"left": -1,
+				"up" : -1,
+				"down" : -1
+			},
+			"tree_id" : 0
+		}
+
+	}
+}

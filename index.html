@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Navigation Prototyp</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <h1>Navi Prototyp</h1>
+        <p>
+            <button type="button" id="btnFloorLeft">&lt;</button>
+            <button type="button" id="btnFloorForward">^</button>
+            <button type="button" id="btnFloorBackward">v</button>
+            <button type="button" id="btnFloorRight">&gt;</button>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <button type="button" id="btnFloorUp">Etage ^</button>
+            <button type="button" id="btnFloorDown">Etage v</button>
+        </p>
+
+        <canvas id="canvas" width=800px height=300px></canvas>
+
+        <p> 
+            <label>Start: </label>
+            <select id="inStart_Floor">
+                <option value="C0">C0</option>
+                <option value="C1">C1</option>
+                <option value="C2">C2</option>
+                <option value="B0">B0</option>
+            </select>
+            <select id="inStart_Room">
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="Aufz">Aufzüge</option>
+                <option value="TH">Treppenhaus</option>
+            </select> <br />
+
+            <label>Ziel:&nbsp;</label>
+            <select id="inFinish_Floor">
+                <option value="C0">C0</option>
+                <option value="C1">C1</option>
+                <option value="C2">C2</option>
+                <option value="B0">B0</option>
+            </select>
+            <select id="inFinish_Room">
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="Aufz">Aufzüge</option>
+                <option value="TH">Treppenhaus</option>
+            </select> <br />
+            <button type="button" id="btnStartNavi">Route berechnen</button> <br /><br/>
+        </p>
+
+        <p id="testOut">
+        </p>
+    </body>
+    <script language="javascript" type="text/javascript" src="js/navi_main.js"></script>
+</html>
