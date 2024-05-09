@@ -23,7 +23,7 @@
             // Read location table
             $locDict = unserialize(file_get_contents('../data/pseudoDB/locationDict.blob'));
             
-            // Return ["tree_id" => int, "nodeAdr" => int] where location = $locStr
+            // Return [["tree_id" => int, "nodeAdr" => int], ...] where location = $locStr
             if(isset($locDict[$locStr]))
                 return $locDict[$locStr];
             else 

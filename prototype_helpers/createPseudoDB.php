@@ -168,7 +168,7 @@
         return true;
     }
     
-    // Create a location dictionary that maps a location string to a node (through tree id + node address)
+    // Create a location dictionary that maps a location string to one or more nodes (through tree id + node address)
     // Intended DB table structure:
     // | id | location(text) | tree_id (int) | nodeAdr (bigint) |
     $locDictPath = '../data/pseudoDB/locationDict.blob';
@@ -178,8 +178,13 @@
         for($t = 0; $t < count($nodeInfo); $t++) {
             foreach($nodeInfo[$t] as $node) {
                 $locStr = $node[3];
-                if(strlen($locStr) > 0)
-                    $locDict[$locStr] = array("tree_id" => $t, "nodeAdr" => $node[0]);
+                if(strlen($locStr) > 0) {
+                    if (!isset($locDict[$locStr])) {
+                        $locDict[$locStr] = array(array("tree_id" => $t, "nodeAdr" => $node[0]));
+                    } else {
+                        $locDict[$locStr][] = array("tree_id" => $t, "nodeAdr" => $node[0]);
+                    }
+                }
             }
         }
         return file_put_contents($locDictPath, serialize($locDict));
