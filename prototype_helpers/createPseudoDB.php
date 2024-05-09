@@ -175,8 +175,8 @@
     function writeLocationDict() {
         global $nodeInfo, $locDictPath;
         $locDict = array();
-        foreach($nodeInfo as $nodeTree) {
-            foreach($nodeTree as $node) {
+        for($t = 0; $t < count($nodeInfo); $t++) {
+            foreach($nodeInfo[$t] as $node) {
                 $locStr = $node[3];
                 if(strlen($locStr) > 0) {
                     if (!isset($locDict[$locStr])) {
