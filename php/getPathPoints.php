@@ -17,9 +17,11 @@
 
         $startNodeInfo = $startNodeInfoArray[0];
         $finishNodeInfo = $finishNodeInfoArray[0];
+        /*
         if(count($startNodeInfoArray) > 1 || count($finishNodeInfoArray) > 1) {
             // TODO get shortest path if any location is mapped to more than one node
         }
+        */
 
         // "meta tree" path calculation if start & finish nodes are in different trees.
         // Returns an associative array with treeA_id => [startAdrA, finishAdrA], treeB_id => ... to iterate over
