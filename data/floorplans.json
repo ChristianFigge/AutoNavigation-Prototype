@@ -13,7 +13,7 @@
 				"up" : "C1",
 				"down" : -1
 			},
-			"tree_id" : 0
+			"tree_ids" : [0]
 		},
 		"C1" : {
 			"imgUrl" : "img/C1.png",
@@ -29,7 +29,7 @@
 				"up" : "C2",
 				"down" : "C0"
 			},
-			"tree_id" : 1
+			"tree_ids" : [1]
 		},
 		"C2" : {
 			"imgUrl" : "img/C2.png",
@@ -45,7 +45,7 @@
 				"up" : -1,
 				"down" : "C1"
 			},
-			"tree_id" : 2
+			"tree_ids" : [2, 3, 4]
 		},
 		"B0" : {
 			"imgUrl" : "img/0.png",
@@ -61,7 +61,7 @@
 				"up" : -1,
 				"down" : -1
 			},
-			"tree_id" : 0
+			"tree_ids" : [0]
 		}
 
 	}

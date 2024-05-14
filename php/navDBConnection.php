@@ -8,6 +8,9 @@
     // The following functions are PLACEHOLDERS to simulate/represent the database logic.
     // Refer to the prototype_helpers folder for more info
 
+    require_once('navUtils.php');
+    require_once('navNodeTree.php');
+
     class NavDBConnection {
         private $connection;
 
@@ -19,11 +22,11 @@
             // close db connection ...
         }
 
-        function getNodeInfo($locStr) {
+        function getNodeInfoArray($locStr) {
             // Read location table
             $locDict = unserialize(file_get_contents('../data/pseudoDB/locationDict.blob'));
-            
-            // Return ["tree_id" => int, "nodeAdr" => int] where location = $locStr
+
+            // Return [["tree_id" => int, "nodeAdr" => bigint], ...] where location = $locStr
             if(isset($locDict[$locStr]))
                 return $locDict[$locStr];
             else 
@@ -36,29 +39,51 @@
             return $nodeTree;
         }
 
-        // "meta tree" path calculation if start & finish nodes are in different trees.
-        // Returns an associative array with treeA_id => [startAdrA, finishAdrA], treeB_id => ... to iterate over 
-        function getMetaTreePath($from_tree, $from_nodeAdr, $to_tree, $to_nodeAdr) {
-            $conArray = array(); 
-
-            if($from_tree != $to_tree) {
-                $conTable = unserialize(file_get_contents('../data/pseudoDB/treeConnections.blob'));
-                $con = $conTable[$from_tree][$to_tree]; // returns [nodeAdr_from, tree_id_to, nodeAdr_to]
-
-                $conArray[$from_tree] = [$from_nodeAdr, $con[0]];
-
-                while($con[1] != $to_tree) {
-                    $nextCon = $conTable[$con[1]][$to_tree];
-                    $conArray[$con[1]] = [$con[2], $nextCon[0]];
-                    $con = $nextCon;
+        // TODO refactor
+        // Returns [i, len], the index of the nearest tree connection relative to nodeAdr and the length of this path
+        // NOTE: For now, we assume that the shortest in-tree traversal is also the shortest path on the floor plan
+        function getNearestConnectionInfo($nodeAdr, $cons) {
+            $minPathLen = getPathLength($nodeAdr, $cons[0][0]);
+            $conIdx = 0;
+            for($i = 1; $i < count($cons); $i++) {
+                $newLen = getPathLength($nodeAdr, $cons[$i][0]);
+                if($newLen < $minPathLen) {
+                    $minPathLen = $newLen;
+                    $conIdx = $i;
                 }
+            }
+            return [$conIdx, $minPathLen];
+        }
 
-                $conArray[$con[1]] = [$con[2], $to_nodeAdr];
+        // TODO refactor
+        // "meta tree" path calculation if start & finish nodes are in different trees.
+        // Returns [a, len]: an associative array a = [treeA_id => [startAdrA, finishAdrA], treeB_id => ...]
+        // to iterate over and the length of this path
+        function getMetaTreePath($from_tree, $from_nodeAdr, $to_tree, $to_nodeAdr) {
+            $conArray = array();
+            $pathLen = 0;
+
+            if($from_tree != $to_tree) { // avoid unnecessary db requests if nodes are in the same tree
+                $conTable = unserialize(file_get_contents('../data/pseudoDB/treeConnections.blob'));
+
+                do {
+                    $cons = $conTable[$from_tree][$to_tree]; // returns [[nodeAdr_from, tree_id_to, nodeAdr_to], ...]
+
+                    $nearestConInfo = $this->getNearestConnectionInfo($from_nodeAdr, $cons); // returns [idx, pathLen]
+                    $con = $cons[ $nearestConInfo[0] ];
+
+                    $conArray[$from_tree] = [$from_nodeAdr, $con[0]];
+                    $pathLen += $nearestConInfo[1];
+
+                    $from_tree = $con[1];
+                    $from_nodeAdr = $con[2];
+                } while ($from_tree != $to_tree);
             }
-            else {  // avoid unnecessary db requests:
-                $conArray[$from_tree] = [$from_nodeAdr, $to_nodeAdr];
-            }
-            return $conArray;
+
+            $conArray[$from_tree] = [$from_nodeAdr, $to_nodeAdr];
+            $pathLen += getPathLength($from_nodeAdr, $to_nodeAdr);
+
+            return [$conArray, $pathLen];
         }
     }
 ?>

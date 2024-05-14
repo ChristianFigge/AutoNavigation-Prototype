@@ -4,7 +4,8 @@
  * Copyright (c) 2024 Christian Figge. All rights reserved.
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
-    require('navNode.php');
+    require_once('navNode.php');
+    require_once('navUtils.php');
 
     class NavNodeTree {
         public $nodes;
@@ -17,31 +18,11 @@
             $this->nodes[$nodeAdr] = new NavNode($nodeAdr, $x, $y);
         }
 
-        // Get common intermediate node of 2 given node adresses
-        // = lower bit PAIRS that are shared between the two adresses
-        // e.g. 101010 & 101110 => 10
-        function getInterNodeAdr($startAdr, $finishAdr) {
-            $xorResult = $startAdr ^ $finishAdr;
-
-            if($xorResult != 0) {
-                $commonAdr = 0;
-                $bitMask = 0b11;
-                while(($xorResult & $bitMask) == 0) {
-                    $commonAdr = $commonAdr | ($startAdr & $bitMask);
-                    $bitMask = $bitMask << 2;
-                }
-                return $commonAdr;
-            }
-            else {
-                return NULL;
-            }
-        }
-
         function calcPath($startAdr, $finishAdr, $needsInterNode = True, $includeStartAdr = True) {
             $adrArray = array(); // node addresses
  
             if($needsInterNode) {
-                $interNodeAdr = $this->getInterNodeAdr($startAdr, $finishAdr);
+                $interNodeAdr = getInterNodeAdr($startAdr, $finishAdr);
 
                 // 1) Calculate path from startNode to interNode
                 // 2) Calculate path from interNode to finishNode and append it (excluding the redundant interNode)

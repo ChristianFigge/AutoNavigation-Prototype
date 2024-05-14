@@ -4,6 +4,8 @@
  * Copyright (c) 2024 Christian Figge. All rights reserved.
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
+    require_once('navUtils.php');
+
     class NavNode {
         public $adr = 0b0;
         public $treeLvl = 0;
@@ -12,19 +14,9 @@
 
         function __construct($p_adr,  $p_x, $p_y) {
             $this->adr = $p_adr;
-            $this->treeLvl = $this->calcTreeLevel($p_adr);
+            $this->treeLvl = calcTreeLevel($p_adr);
             $this->posX = $p_x;
             $this->posY = $p_y;
-        }
-
-        function calcTreeLevel($adr) {
-            $lvl = 0;
-            $bitMask = 0b1100;  // cuts root bits (those could be 00)
-            while(($adr & $bitMask) != 0) {
-                $lvl++;
-                $bitMask = ($bitMask << 2);
-            }
-            return $lvl;
         }
 
         function getPos() {
