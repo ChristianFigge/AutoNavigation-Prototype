@@ -8,7 +8,7 @@
     require_once('navUtils.php');
 
     class NavNodeTree {
-        public $nodes;
+        private $nodes;
 
         function __construct() {
             $this->nodes = array();

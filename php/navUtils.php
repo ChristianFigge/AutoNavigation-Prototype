@@ -48,3 +48,12 @@ function calcTreeLevel($adr) {
     }
     return $lvl;
 }
+
+function getTreeConnectionsFromTable($conTable, $fromTree, $toTree) {
+    if(isset($conTable[$fromTree][$toTree])) {
+        return $conTable[$fromTree][$toTree];
+    }
+    else {
+        return $conTable[$fromTree][-1];
+    }
+}

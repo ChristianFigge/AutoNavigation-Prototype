@@ -39,6 +39,17 @@
             return $nodeTree;
         }
 
+        function getTreeConnectionTable() {
+            return unserialize(file_get_contents('../data/pseudoDB/treeConnections.blob'));
+        }
+
+        function getTreeConnections($fromTree, $toTree) {
+            return getTreeConnectionsFromTable($this->getTreeConnectionTable(), $fromTree, $toTree);
+            //$conTable = $this->getTreeConnectionTable();
+            //return $conTable[$fromTree][$toTree];
+        }
+
+        /*
         // TODO refactor
         // Returns [i, len], the index of the nearest tree connection relative to nodeAdr and the length of this path
         // NOTE: For now, we assume that the shortest in-tree traversal is also the shortest path on the floor plan
@@ -85,5 +96,6 @@
 
             return [$conArray, $pathLen];
         }
+        */
     }
 ?>

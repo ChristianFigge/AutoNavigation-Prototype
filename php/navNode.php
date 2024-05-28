@@ -7,13 +7,13 @@
     require_once('navUtils.php');
 
     class NavNode {
-        public $adr = 0b0;
-        public $treeLvl = 0;
-        public $posX = 0;
-        public $posY = 0;
+        //private $adr = 0b0; // saved in the NavNodeTree, not necessary here (yet?)
+        private $treeLvl = 0;
+        private $posX = 0;
+        private $posY = 0;
 
         function __construct($p_adr,  $p_x, $p_y) {
-            $this->adr = $p_adr;
+            //$this->adr = $p_adr;
             $this->treeLvl = calcTreeLevel($p_adr);
             $this->posX = $p_x;
             $this->posY = $p_y;
