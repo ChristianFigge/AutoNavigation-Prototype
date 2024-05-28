@@ -40,24 +40,17 @@ class Navigator {
         $conArray = array();
         $pathLen = 0;
 
-        if($from_tree != $to_tree) { // avoid unnecessary db requests if nodes are in the same tree
-           // $conTable = $this->dbConnection->getTreeConnectionTable();
+        while ($from_tree != $to_tree) {
+            $cons = getTreeConnectionsFromTable($this->treeConTable, $from_tree, $to_tree); // returns [[nodeAdr_from, tree_id_to, nodeAdr_to], ...]
 
-            do {
-                $cons = getTreeConnectionsFromTable($this->treeConTable, $from_tree, $to_tree);
-                //$cons = $conTable[$from_tree][$to_tree]; // returns [[nodeAdr_from, tree_id_to, nodeAdr_to], ...]
-                // alternative to the command above, but probably too slow in a loop:
-                //$cons = $this->dbConnection->getTreeConnections($from_tree, $to_tree);
+            $nearestConInfo = $this->getNearestConnectionInfo($from_nodeAdr, $cons); // returns [idx, pathLen]
+            $con = $cons[ $nearestConInfo[0] ];
 
-                $nearestConInfo = $this->getNearestConnectionInfo($from_nodeAdr, $cons); // returns [idx, pathLen]
-                $con = $cons[ $nearestConInfo[0] ];
+            $conArray[$from_tree] = [$from_nodeAdr, $con[0]];
+            $pathLen += $nearestConInfo[1];
 
-                $conArray[$from_tree] = [$from_nodeAdr, $con[0]];
-                $pathLen += $nearestConInfo[1];
-
-                $from_tree = $con[1];
-                $from_nodeAdr = $con[2];
-            } while ($from_tree != $to_tree);
+            $from_tree = $con[1];
+            $from_nodeAdr = $con[2];
         }
 
         $conArray[$from_tree] = [$from_nodeAdr, $to_nodeAdr];

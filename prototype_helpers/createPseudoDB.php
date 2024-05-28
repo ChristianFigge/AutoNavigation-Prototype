@@ -162,48 +162,26 @@
     $treeConnections = array(
         // Connections from tree #0 (C0) to...
         array(
-            //1 => [  // C1
-            //    [/* from_node */ 0b1110111011011001, /* to_tree */ 1, /* to_node */ 0b11111011011001],  // Stairs
-            //    [/* from_node */ 0b1101011001, /* to_tree */ 1, /* to_node */ 0b1101011001]             // Elevator
-            //],
-            //2 => [  // C2-STAIRWELL
-            //    [/* from_node */ 0b1110111011011001, /* to_tree */ 1, /* to_node */ 0b11111011011001],  // Stairs (indirect connection over tree 1)
-            //    [/* from_node */ 0b1101011001, /* to_tree */ 1, /* to_node */ 0b1101011001]             // Elevator (indirect connection over tree 1)
-            //],
-            //3 => [  // C2-LEFT
-            //    [/* from_node */ 0b1110111011011001, /* to_tree */ 1, /* to_node */ 0b11111011011001],  // Stairs (indirect connection over tree 1)
-            //    [/* from_node */ 0b1101011001, /* to_tree */ 1, /* to_node */ 0b1101011001]             // Elevator (indirect connection over tree 1)
-            //],
-            /*4*/ -1 => [  // C2-RIGHT
+            -1 => [
                 [/* from_node */ 0b1110111011011001, /* to_tree */ 1, /* to_node */ 0b11111011011001],  // Stairs (indirect connection over tree 1)
                 [/* from_node */ 0b1101011001, /* to_tree */ 1, /* to_node */ 0b1101011001]             // Elevator (indirect connection over tree 1)
             ]
-
         ),
         // Connections from tree #1 (C1) to...
         array(
+            -1 => [
+                [/* from_node */ 0b1110111011011001, /* to_tree */ 2, /* to_node */ 0b11]   // indirect connection over tree #2
+            ],
             0 => [  // C0
                 [/* from_node */ 0b11111011011001, /* to_tree */ 0, /* to_node */ 0b1110111011011001],  // Stairs
                 [/* from_node */ 0b1101011001, /* to_tree */ 0, /* to_node */ 0b1101011001]             // Elevator
-            ],
-            //2 => [  // C2-STAIRWELL
-            //    [/* from_node */ 0b1110111011011001, /* to_tree */ 2, /* to_node */ 0b11]
-            //],
-            //3 => [  // C2-LEFT
-            //    [/* from_node */ 0b1110111011011001, /* to_tree */ 2, /* to_node */ 0b11]   // indirect connection over tree #2
-            //],
-            /*4*/-1 => [  // C2-RIGHT
-                [/* from_node */ 0b1110111011011001, /* to_tree */ 2, /* to_node */ 0b11]   // indirect connection over tree #2
             ]
         ),
         // Connections from tree #2 (C2-STAIRWELL) to...
         array(
-            /*0*/-1 => [  // C0
+            -1 => [
                 [/* from_node */ 0b11, /* to_tree */ 1, /* to_node */ 0b1110111011011001]   // indirect connection over tree #1
             ],
-            //1 => [  // C1
-            //    [/* from_node */ 0b11, /* to_tree */ 1, /* to_node */ 0b1110111011011001]
-            //],
             3 => [  // C2-LEFT
                 [/* from_node */ 0b01011011, /* to_tree */ 3, /* to_node */ 0b01]
             ],
@@ -213,13 +191,7 @@
         ),
         // Connections from tree #3 (C2-LEFT) to...
         array(
-            //0 => [  // C0
-            //    [/* from_node */ 0b01, /* to_tree */ 2, /* to_node */ 0b01011011]   // indirect connection over tree #2
-            //],
-            //1 => [  // C1
-            //    [/* from_node */ 0b01, /* to_tree */ 2, /* to_node */ 0b01011011]   // indirect connection over tree #2
-            //],
-            /*2*/-1 => [  // C2-STAIRWELL
+            -1 => [
                 [/* from_node */ 0b01, /* to_tree */ 2, /* to_node */ 0b01011011]
             ],
             4 => [  // C2-RIGHT
@@ -228,13 +200,7 @@
         ),
         // Connections from tree #4 (C2-RIGHT) to ...
         array(
-            //0 => [  // C0
-            //    [/* from_node */ 0b10, /* to_tree */ 2, /* to_node */ 0b1110111011] // indirect connection over tree #2
-            //],
-            //1 => [  // C1
-            //    [/* from_node */ 0b10, /* to_tree */ 2, /* to_node */ 0b1110111011] // indirect connection over tree #2
-            //],
-            /*2*/-1 => [  // C2-STAIRWELL
+            -1 => [
                 [/* from_node */ 0b10, /* to_tree */ 2, /* to_node */ 0b1110111011] // indirect connection over tree #2
             ],
             3 => [  // C2-LEFT
